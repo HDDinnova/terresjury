@@ -1,0 +1,33 @@
+.navbar-brand img{
+  height: 25px;
+}
+video{
+  width: 100%;
+}
+.screenshot img{
+  width: 100%;
+}
+.form-inline .glyphicon{
+  color: #337ab7;
+}
+form{
+  margin-bottom: 15px;
+}
+.loading{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(100,100,255,0.7);
+  z-index: 9999;
+}
+.loading .progress-striped{
+  position: absolute;
+  top: 49vh;
+  left: 25vw;
+  width: 50vw;
+}
+.glyphicon{
+  font-size: large;
+}

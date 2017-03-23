@@ -1,0 +1,208 @@
+<nav class="navbar navbar-default" role="navigation" ng-controller="DashController as vm">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-click="vm.isNavCollapsed = !vm.isNavCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img src="../img/terres-mini.png" alt="logo"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" uib-collapse="vm.isNavCollapsed">
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li><a ui-sref="#">Corporate</a></li> -->
+        <li class="dropdown" uib-dropdown>
+          <a href="#" class="dropdown-toggle" uib-dropdown-toggle>{{vm.user.name}} <b class="caret"></b></a>
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <!-- <li><a href="#">AA</a></li>
+            <li class="divider"></li> -->
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid" ng-controller="TourfilmController as vm">
+  <div class="loading" ng-if="vm.loading">
+    <uib-progressbar class="progress-striped active" max="100" value="100"><i>loading...</i></uib-progressbar>
+  </div>
+  <h1 class="text-center">{{vm.film.title}}</h1>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+    <video ng-src="https://terres.info/intranet/film/{{vm.film.film}}" controls></video>
+  </div>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+    <div class="col-md-6">
+      <strong>Director:</strong> {{vm.film.director}}
+    </div>
+    <div class="col-md-6">
+      <strong>Producer:</strong> {{vm.film.producer}}
+    </div>
+  </div>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+    <div class="col-md-12">
+      <p><strong>Synopsis</strong></p>
+      <p>{{vm.film.synopsi}}</p>
+    </div>
+  </div>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 screenshot">
+    <div class="col-md-4 col-sm-12 text-center">
+      <img ng-src="data:{{vm.film.screenshot1Type}};base64,{{vm.film.screenshot1}}" alt="screenshot">
+    </div>
+    <div class="col-md-4 col-sm-12 text-center">
+      <img ng-src="data:{{vm.film.screenshot2Type}};base64,{{vm.film.screenshot2}}" alt="screenshot">
+    </div>
+    <div class="col-md-4 col-sm-12 text-center">
+      <img ng-src="data:{{vm.film.screenshot3Type}};base64,{{vm.film.screenshot3}}" alt="screenshot">
+    </div>
+  </div>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 screenshot">
+    <div class="col-md-12">
+      <strong>Categories:</strong>
+      <ul>
+        <li ng-if="vm.film.travel == '1'">Travel Destinations</li>
+        <li ng-if="vm.film.cultural == '1'">Cultural Landscapes</li>
+        <li ng-if="vm.film.sports == '1'">Sports and outdoors activities</li>
+        <li ng-if="vm.film.expedition == '1'">Routes, expedition and travel</li>
+        <li ng-if="vm.film.hotels == '1'">Hotels, Resorts & Spas</li>
+        <li ng-if="vm.film.events == '1'">Events</li>
+        <li ng-if="vm.film.health == '1'">Health and Wellness Tourism</li>
+        <li ng-if="vm.film.rural == '1'">Rural Tourism</li>
+        <li ng-if="vm.film.naturaltour == '1'">Natural Tourism</li>
+        <li ng-if="vm.film.enotourism == '1'">Gastronomic Experiences, Enotourism & Oleotourism</li>
+        <li ng-if="vm.film.destinations == '1'">Film destinations</li>
+        <li ng-if="vm.film.animation == '1'">Animation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <hr>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+    <form class="form-inline">
+      <h4>TECHNICAL EVALUATION CRITERIA</h4>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Script and Direction</strong></h5>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Originality of the script</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.originalityscript" max="5" aria-labelledby="Originality of the script"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Rhythm</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.rythm" max="5" aria-labelledby="Rythm"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Adequate length of the film</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.length" max="5" aria-labelledby="Adequate length of the film"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Photography</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.photography" max="5" aria-labelledby="Photography"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Sound work</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.sound" max="5" aria-labelledby="Sound work"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Edition</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.edition" max="5" aria-labelledby="Edition"></span>
+        </div>
+      </div>
+      <h4 class="text-uppercase">Tourism Communication</h4>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Is it effective?</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.specific1" max="5" aria-labelledby="is it effective?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Has been the plot of the story originally told?</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.specific2" max="5" aria-labelledby="has been the plot of the story originally told?"></span>
+        </div>
+      </div>
+      <h4 class="text-uppercase">SUSTAINALITY CRITERIA</h4>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Has attention been paid to sustainability values during the production of the film?</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.sustainvalue" max="5" aria-labelledby="Has attention been paid to sustainability values during the production of the film?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Does the film stimulate a sustainable awareness in the viewer based on the above mentioned three pillars and not just on environment?</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.stimulate" max="5" aria-labelledby="Does the film stimulate a sustainable awareness in the viewer based on the above mentioned three pillars and not just on environment?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>How effective is the sustainability communication in terms of:</strong></h5>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Originality</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.originalitysustain" max="5" aria-labelledby="Originality"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Attractiveness</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.attractiveness" max="5" aria-labelledby="Attractiveness"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Addressing personal conscience</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.conscience" max="5" aria-labelledby="Addressing personal conscience"></span>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-md-12 text-center">
+        <button type="button" name="button" class="btn btn-lg btn-primary" ng-click="vm.save()">SAVE EVALUATION</button>
+      </div>
+    </form>
+</div>

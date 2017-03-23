@@ -1,0 +1,99 @@
+<nav class="navbar navbar-default" role="navigation" ng-controller="DashController as vm">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-click="vm.isNavCollapsed = !vm.isNavCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img src="../img/terres-mini.png" alt="logo"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" uib-collapse="vm.isNavCollapsed">
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li><a ui-sref="#">Corporate</a></li> -->
+        <li class="dropdown" uib-dropdown>
+          <a href="#" class="dropdown-toggle" uib-dropdown-toggle>{{vm.user.name}} <b class="caret"></b></a>
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <!-- <li><a href="#">AA</a></li>
+            <li class="divider"></li> -->
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid" ng-controller="FilmsController as vm">
+  <uib-tabset>
+    <uib-tab heading="Tourism">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Film</th>
+            <th>Director</th>
+            <th>Competitor</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="film in vm.films.tourism track by $index">
+            <td ng-bind-html="film.title"></td>
+            <td ng-bind-html="film.director"></td>
+            <td ng-bind-html="film.fullName"></td>
+            <td class="text-center">
+              <a ui-sref="tourfilm({id: film.id})"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </uib-tab>
+    <uib-tab heading="Documentary">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Film</th>
+            <th>Director</th>
+            <th>Competitor</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="film in vm.films.documentary track by $index">
+            <td ng-bind-html="film.title"></td>
+            <td ng-bind-html="film.director"></td>
+            <td ng-bind-html="film.fullName"></td>
+            <td class="text-center">
+              <a ui-sref="docfilm({id: film.id})"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </uib-tab>
+    <uib-tab heading="Corporate">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Film</th>
+            <th>Director</th>
+            <th>Competitor</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="film in vm.films.corporate track by $index">
+            <td ng-bind-html="film.title"></td>
+            <td ng-bind-html="film.director"></td>
+            <td ng-bind-html="film.fullName"></td>
+            <td class="text-center">
+              <a ui-sref="corpfilm({id: film.id})"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </uib-tab>
+  </uib-tabset>
+</div>

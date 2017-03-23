@@ -1,0 +1,189 @@
+<nav class="navbar navbar-default" role="navigation" ng-controller="DashController as vm">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-click="vm.isNavCollapsed = !vm.isNavCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img src="../img/terres-mini.png" alt="logo"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" uib-collapse="vm.isNavCollapsed">
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li><a ui-sref="#">Corporate</a></li> -->
+        <li class="dropdown" uib-dropdown>
+          <a href="#" class="dropdown-toggle" uib-dropdown-toggle>{{vm.user.name}} <b class="caret"></b></a>
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <!-- <li><a href="#">AA</a></li>
+            <li class="divider"></li> -->
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid" ng-controller="CorporateController as vm">
+  <div class="loading" ng-if="vm.loading">
+    <uib-progressbar class="progress-striped active" max="100" value="100"><i>loading...</i></uib-progressbar>
+  </div>
+  <h1 class="text-center">{{vm.film.title}}</h1>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+    <video ng-src="https://terres.info/intranet/film/{{vm.film.film}}" controls></video>
+  </div>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+    <div class="col-md-6">
+      <strong>Director:</strong> {{vm.film.director}}
+    </div>
+    <div class="col-md-6">
+      <strong>Producer:</strong> {{vm.film.producer}}
+    </div>
+  </div>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+    <div class="col-md-12">
+      <p><strong>Synopsis</strong></p>
+      <p>{{vm.film.synopsi}}</p>
+    </div>
+  </div>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 screenshot">
+    <div class="col-md-4 col-sm-12 text-center">
+      <img ng-src="data:{{vm.film.screenshot1Type}};base64,{{vm.film.screenshot1}}" alt="screenshot">
+    </div>
+    <div class="col-md-4 col-sm-12 text-center">
+      <img ng-src="data:{{vm.film.screenshot2Type}};base64,{{vm.film.screenshot2}}" alt="screenshot">
+    </div>
+    <div class="col-md-4 col-sm-12 text-center">
+      <img ng-src="data:{{vm.film.screenshot3Type}};base64,{{vm.film.screenshot3}}" alt="screenshot">
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <hr>
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+    <form class="form-inline">
+      <h4>TECHNICAL EVALUATION CRITERIA</h4>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Script and Direction</strong></h5>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Originality of the script</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.originalityscript" max="10" aria-labelledby="Originality of the script"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Rhythm</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.rythm" max="10" aria-labelledby="Rythm"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Adequate length of the film</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.length" max="10" aria-labelledby="Adequate length of the film"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Photography</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.photography" max="10" aria-labelledby="Photography"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Sound work</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.sound" max="10" aria-labelledby="Sound work"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Edition</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.edition" max="10" aria-labelledby="Edition"></span>
+        </div>
+      </div>
+      <h4 class="text-uppercase">Corporative Communication</h4>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>is the film sustainability projected as “environmentally” (or any other individual value) friendly?</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.specific1" max="10" aria-labelledby="is the film sustainability projected as “environmentally” (or any other individual value) friendly?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Is there mention of the three pillars of sustainability: environmental, socio-cultural and economic values, or the three p’s (people, planet, profit)?</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.specific2" max="10" aria-labelledby="Is there mention of the three pillars of sustainability: environmental, socio-cultural and economic values, or the three p’s (people, planet, profit)?"></span>
+        </div>
+      </div>
+      <h4 class="text-uppercase">SUSTAINALITY CRITERIA</h4>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Has attention been paid to sustainability values during the production of the film?</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.sustainvalue" max="10" aria-labelledby="Has attention been paid to sustainability values during the production of the film?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>Does the film stimulate a sustainable awareness in the viewer based on the above mentioned three pillars and not just on environment?</strong></h5>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.stimulate" max="10" aria-labelledby="Does the film stimulate a sustainable awareness in the viewer based on the above mentioned three pillars and not just on environment?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h5><strong>How effective is the sustainability communication in terms of:</strong></h5>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Originality</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.originalitysustain" max="10" aria-labelledby="Originality"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Attractiveness</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.attractiveness" max="10" aria-labelledby="Attractiveness"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3">
+          <h6>Addressing personal conscience</h6>
+        </div>
+        <div class="col-md-9 text-info">
+          <span uib-rating ng-model="vm.eval.conscience" max="10" aria-labelledby="Addressing personal conscience"></span>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-md-12 text-center">
+        <button type="button" name="button" class="btn btn-lg btn-primary" ng-click="vm.save()">SAVE EVALUATION</button>
+      </div>
+    </form>
+</div>

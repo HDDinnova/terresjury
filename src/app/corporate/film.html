@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><img src="../img/terres-mini.png" alt="logo"></a>
+      <a class="navbar-brand" ui-sref="dashboard"><img src="../img/terres-mini.png" alt="logo"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -66,119 +66,184 @@
     <form class="form-inline">
       <h4>TECHNICAL EVALUATION CRITERIA</h4>
       <div class="col-md-12">
-        <div class="col-md-3">
-          <h5><strong>Script and Direction</strong></h5>
+        <div class="col-md-4">
+          <h5><strong>Originality of the script</strong></h5>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.originalityscript" max="5" aria-labelledby="Originality of the script"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
-          <h6>Originality of the script</h6>
-        </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.originalityscript" max="10" aria-labelledby="Originality of the script"></span>
+        <div class="col-md-4">
+          <h5><strong>Direction</strong></h5>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
+        <div class="col-md-3 col-md-offset-1">
           <h6>Rhythm</h6>
         </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.rythm" max="10" aria-labelledby="Rythm"></span>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.rythm" max="5" aria-labelledby="Rythm"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
+        <div class="col-md-3 col-md-offset-1">
           <h6>Adequate length of the film</h6>
         </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.length" max="10" aria-labelledby="Adequate length of the film"></span>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.length" max="5" aria-labelledby="Adequate length of the film"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <h5><strong>Photography</strong></h5>
         </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.photography" max="10" aria-labelledby="Photography"></span>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.photography" max="5" aria-labelledby="Photography"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <h5><strong>Sound work</strong></h5>
         </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.sound" max="10" aria-labelledby="Sound work"></span>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.sound" max="5" aria-labelledby="Sound work"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <h5><strong>Edition</strong></h5>
         </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.edition" max="10" aria-labelledby="Edition"></span>
-        </div>
-      </div>
-      <h4 class="text-uppercase">Corporative Communication</h4>
-      <div class="col-md-12">
-        <div class="col-md-3">
-          <h5><strong>is the film sustainability projected as “environmentally” (or any other individual value) friendly?</strong></h5>
-        </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.specific1" max="10" aria-labelledby="is the film sustainability projected as “environmentally” (or any other individual value) friendly?"></span>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.edition" max="5" aria-labelledby="Edition"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
-          <h5><strong>Is there mention of the three pillars of sustainability: environmental, socio-cultural and economic values, or the three p’s (people, planet, profit)?</strong></h5>
+        <div class="col-md-4">
+          <h5><strong>How is the use of special effects? Animations?</strong></h5>
         </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.specific2" max="10" aria-labelledby="Is there mention of the three pillars of sustainability: environmental, socio-cultural and economic values, or the three p’s (people, planet, profit)?"></span>
-        </div>
-      </div>
-      <h4 class="text-uppercase">SUSTAINALITY CRITERIA</h4>
-      <div class="col-md-12">
-        <div class="col-md-3">
-          <h5><strong>Has attention been paid to sustainability values during the production of the film?</strong></h5>
-        </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.sustainvalue" max="10" aria-labelledby="Has attention been paid to sustainability values during the production of the film?"></span>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.specialeffects" max="5" aria-labelledby="How is the use of special effects? Animations?"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
-          <h5><strong>Does the film stimulate a sustainable awareness in the viewer based on the above mentioned three pillars and not just on environment?</strong></h5>
-        </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.stimulate" max="10" aria-labelledby="Does the film stimulate a sustainable awareness in the viewer based on the above mentioned three pillars and not just on environment?"></span>
+        <div class="col-md-4">
+          <h5><strong>Effectiveness and Originality</strong></h5>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
-          <h5><strong>How effective is the sustainability communication in terms of:</strong></h5>
+        <div class="col-md-3 col-md-offset-1">
+          <h6>Is it effective?</h6>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.iseffective" max="5" aria-labelledby="Is it effective?"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
-          <h6>Originality</h6>
+        <div class="col-md-3 col-md-offset-1">
+          <h6>Is the plot of the story originally told?</h6>
         </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.originalitysustain" max="10" aria-labelledby="Originality"></span>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="col-md-3">
-          <h6>Attractiveness</h6>
-        </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.attractiveness" max="10" aria-labelledby="Attractiveness"></span>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.plot" max="5" aria-labelledby="Is the plot of the story originally told?"></span>
         </div>
       </div>
       <div class="col-md-12">
-        <div class="col-md-3">
-          <h6>Addressing personal conscience</h6>
+        <div class="col-md-3 col-md-offset-1">
+          <h6>Is the message convincing, without portraying a false image?</h6>
         </div>
-        <div class="col-md-9 text-info">
-          <span uib-rating ng-model="vm.eval.conscience" max="10" aria-labelledby="Addressing personal conscience"></span>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.convincing" max="5" aria-labelledby="Is the message convincing, without portraying a false image?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3 col-md-offset-1">
+          <h6>Is the message attractive?</h6>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.attractive" max="5" aria-labelledby="Is the message attractive?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h5><strong>The place of the viewer</strong></h5>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3 col-md-offset-1">
+          <h6>Is it the viewer part of what s/he sees or just a viewer?</h6>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.place_viewer" max="5" aria-labelledby="Is it the viewer part of what s/he sees or just a viewer?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-3 col-md-offset-1">
+          <h6>Does the film stimulate a specific emotion?</h6>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.place_stimulate" max="5" aria-labelledby="Does the film stimulate a specific emotion?"></span>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      <h4 class="text-uppercase">Specific evaluation criteria for Corporative Communication</h4>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h5><strong>Is the film "green washing" an otherwise environmentally unfriendly corporate image?</strong></h5>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.specific_green" max="5" aria-labelledby="Is the film green washing an otherwise environmentally unfriendly corporate image?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h5><strong>Does it enhance the Corporate Social Responsibility (CSR) of the company?</strong></h5>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.specific_csr" max="5" aria-labelledby="Does it enhance the Corporate Social Responsibility (CSR) of the company?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h5><strong>Does the company's products/services provide sustainable solutions to an unsustainable problem?</strong></h5>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.specific_provide" max="5" aria-labelledby="Does the company's products/services provide sustainable solutions to an unsustainable problem?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h5><strong>Does the film adequately portray this sustainable solution?</strong></h5>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.specific_portray" max="5" aria-labelledby="Does the film adequately portray this sustainable solution?"></span>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      <h4 class="text-uppercase">SUSTAINABILITY CRITERIA</h4>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h5><strong>Does the film discuss all the three pillars of sustainability: environmental, socio-cultural and economic values (also known as the 3 p’s people, planet, profit), or is it only focused on one of these three values (for example, only the environment)?</strong></h5>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.discuss" max="5" aria-labelledby="Does the film discuss all the three pillars of sustainability: environmental, socio-cultural and economic values (also known as the 3 p’s people, planet, profit), or is it only focused on one of these three values (for example, only the environment)?"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h5><strong>Has attention been paid to sustainability values during the production of the film, as fas as can be judged by the final film? (Think of the impact the production of the film had on environment, people, animals, cultures, on long or short term)</strong></h5>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.attention" max="5" aria-labelledby="Has attention been paid to sustainability values during the production of the film, as fas as can be judged by the final film? (Think of the impact the production of the film had on environment, people, animals, cultures, on long or short term)"></span>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h5><strong>Does the film stimulate a sustainable awareness in the viewer based on the above mentioned 3 p’s (environmental, socio-cultural and economic values)?</strong></h5>
+        </div>
+        <div class="col-md-8 text-info">
+          <span uib-rating ng-model="vm.eval.awareness" max="5" aria-labelledby="Does the film stimulate a sustainable awareness in the viewer based on the above mentioned 3 p’s (environmental, socio-cultural and economic values)?"></span>
         </div>
       </div>
       <div class="clearfix"></div>

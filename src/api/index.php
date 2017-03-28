@@ -72,7 +72,7 @@ Flight::route('POST /login', function(){
 ///////
 // List all films by section
 ///////
-Flight::route('GET /films', function(){
+Flight::route('GET /films/@jury', function($jury){
   $db = Flight::db();
 
   $films = [];
@@ -82,6 +82,17 @@ Flight::route('GET /films', function(){
   $q->execute();
   $corporate = [];
   while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $sql = "SELECT id FROM evaluation_corporate WHERE film = :film AND jury = :jury";
+    $y = $db->prepare($sql);
+    $y->bindParam(':film', $row['id']);
+    $y->bindParam(':jury', $jury);
+    $y->execute();
+    $count = $y->rowCount();
+    if ($count > 0) {
+      $row['evaluation'] = 'true';
+    } else {
+      $row['evaluation'] = 'false';
+    }
     $corporate[] = $row;
   }
 
@@ -92,6 +103,17 @@ Flight::route('GET /films', function(){
   $q->execute();
   $documentary = [];
   while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $sql = "SELECT id FROM evaluation_documentary WHERE film = :film AND jury = :jury";
+    $y = $db->prepare($sql);
+    $y->bindParam(':film', $row['id']);
+    $y->bindParam(':jury', $jury);
+    $y->execute();
+    $count = $y->rowCount();
+    if ($count > 0) {
+      $row['evaluation'] = 'true';
+    } else {
+      $row['evaluation'] = 'false';
+    }
     $documentary[] = $row;
   }
 
@@ -102,6 +124,17 @@ Flight::route('GET /films', function(){
   $q->execute();
   $tourism = [];
   while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $sql = "SELECT id FROM evaluation_tourism WHERE film = :film AND jury = :jury";
+    $y = $db->prepare($sql);
+    $y->bindParam(':film', $row['id']);
+    $y->bindParam(':jury', $jury);
+    $y->execute();
+    $count = $y->rowCount();
+    if ($count > 0) {
+      $row['evaluation'] = 'true';
+    } else {
+      $row['evaluation'] = 'false';
+    }
     $tourism[] = $row;
   }
 
@@ -157,10 +190,10 @@ Flight::route('POST /tourfilm/@id/@jury', function($id,$jury){
     $sql = "INSERT INTO evaluation_tourism(";
     $sql .= "jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, ";
     $sql .= "attractive, place_viewer, place_stimulate, specific_sell, specific_clear, specific_provide, ";
-    $sql .= "specific_focus, specific_promote, sustainvalue, stimulate, discuss, attention, awareness) VALUES (";
+    $sql .= "specific_focus, specific_promote, discuss, attention, awareness) VALUES (";
     $sql .= ":val1,:val2,:val3,:val4,:val5,:val6,:val7,:val8,:val9,:val10,:val11,:val12,";
-    $sql .= ":val13,:val14,:val15,:val16,:val17,:val18)";
-    $sql .= ":val19,:val20,:val21,:val22,:val23,:val24,:val25)";
+    $sql .= ":val13,:val14,:val15,:val16,:val17,:val18,";
+    $sql .= ":val19,:val20,:val21,:val22,:val23)";
     $q = $db->prepare($sql);
     $q->bindParam(':val1', $jury);
     $q->bindParam(':val2', $id);
@@ -182,23 +215,23 @@ Flight::route('POST /tourfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val18', $post['specific_provide'], PDO::PARAM_INT);
     $q->bindValue(':val19', $post['specific_focus'], PDO::PARAM_INT);
     $q->bindValue(':val20', $post['specific_promote'], PDO::PARAM_INT);
-    $q->bindValue(':val21', $post['sustainvalue'], PDO::PARAM_INT);
-    $q->bindValue(':val22', $post['stimulate'], PDO::PARAM_INT);
-    $q->bindValue(':val23', $post['discuss'], PDO::PARAM_INT);
-    $q->bindValue(':val24', $post['attention'], PDO::PARAM_INT);
-    $q->bindValue(':val25', $post['awareness'], PDO::PARAM_INT);
+    $q->bindValue(':val21', $post['discuss'], PDO::PARAM_INT);
+    $q->bindValue(':val22', $post['attention'], PDO::PARAM_INT);
+    $q->bindValue(':val23', $post['awareness'], PDO::PARAM_INT);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully saved";
+      $header = 200;
     } catch (Exception $e) {
       $res['message'] = "There are an error $e, please try later";
+      $header = 404;
     }
   } else {
     $sql = "UPDATE evaluation_tourism SET";
-    $sql .= "originalityscript=:val3, rythm=:val4, length=:val5, photography=:val6, sound=:val7, edition=:val8, specialeffects=:val9, ";
+    $sql .= " originalityscript=:val3, rythm=:val4, length=:val5, photography=:val6, sound=:val7, edition=:val8, specialeffects=:val9, ";
     $sql .= "iseffective=:val10, plot=:val11, convincing=:val12, attractive=:val13, place_viewer=:val14, place_stimulate=:val15, ";
     $sql .= "specific_sell=:val16, specific_clear=:val17, specific_provide=:val18, specific_focus=:val19, specific_promote=:val20, ";
-    $sql .= "sustainvalue=:val21, stimulate=:val22, discuss=:val23, attention=:val24, awareness=:val25 WHERE film = :id AND jury = :jury";
+    $sql .= "discuss=:val21, attention=:val22, awareness=:val23 WHERE film = :id AND jury = :jury";
     $q = $db->prepare($sql);
     $q->bindParam(':id', $id);
     $q->bindParam(':jury', $jury);
@@ -220,19 +253,19 @@ Flight::route('POST /tourfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val18', $post['specific_provide'], PDO::PARAM_INT);
     $q->bindValue(':val19', $post['specific_focus'], PDO::PARAM_INT);
     $q->bindValue(':val20', $post['specific_promote'], PDO::PARAM_INT);
-    $q->bindValue(':val21', $post['sustainvalue'], PDO::PARAM_INT);
-    $q->bindValue(':val22', $post['stimulate'], PDO::PARAM_INT);
-    $q->bindValue(':val23', $post['discuss'], PDO::PARAM_INT);
-    $q->bindValue(':val24', $post['attention'], PDO::PARAM_INT);
-    $q->bindValue(':val25', $post['awareness'], PDO::PARAM_INT);
+    $q->bindValue(':val21', $post['discuss'], PDO::PARAM_INT);
+    $q->bindValue(':val22', $post['attention'], PDO::PARAM_INT);
+    $q->bindValue(':val23', $post['awareness'], PDO::PARAM_INT);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully updated";
+      $header = 200;
     } catch (Exception $e) {
       $res['message'] = "There are an error $e, please try later";
+      $header = 404;
     }
   }
-  Flight::json($res);
+  Flight::json($res,$header);
 });
 
 ///////
@@ -277,7 +310,13 @@ Flight::route('POST /corpfilm/@id/@jury', function($id,$jury){
   $q->execute();
   $count = $q->rowCount();
   if ($count == 0) {
-    $sql = "INSERT INTO evaluation_corporate(jury, film, originalityscript, rythm, length, photography, sound, edition, specific1, specific2, sustainvalue, stimulate, originalitysustain, attractiveness, conscience) VALUES (:val1,:val2,:val3,:val4,:val5,:val6,:val7,:val8,:val9,:val10,:val11,:val12,:val13,:val14,:val15)";
+    $sql = "INSERT INTO evaluation_corporate(";
+    $sql .= "jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, ";
+    $sql .= "attractive, place_viewer, place_stimulate, specific_green, specific_csr, specific_provide, ";
+    $sql .= "specific_portray, discuss, attention, awareness) VALUES (";
+    $sql .= ":val1,:val2,:val3,:val4,:val5,:val6,:val7,:val8,:val9,:val10,:val11,:val12,";
+    $sql .= ":val13,:val14,:val15,:val16,:val17,:val18,";
+    $sql .= ":val19,:val20,:val21,:val22)";
     $q = $db->prepare($sql);
     $q->bindParam(':val1', $jury);
     $q->bindParam(':val2', $id);
@@ -287,21 +326,34 @@ Flight::route('POST /corpfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val6', $post['photography'], PDO::PARAM_INT);
     $q->bindValue(':val7', $post['sound'], PDO::PARAM_INT);
     $q->bindValue(':val8', $post['edition'], PDO::PARAM_INT);
-    $q->bindValue(':val9', $post['specific1'], PDO::PARAM_INT);
-    $q->bindValue(':val10', $post['specific2'], PDO::PARAM_INT);
-    $q->bindValue(':val11', $post['sustainvalue'], PDO::PARAM_INT);
-    $q->bindValue(':val12', $post['stimulate'], PDO::PARAM_INT);
-    $q->bindValue(':val13', $post['originalitysustain'], PDO::PARAM_INT);
-    $q->bindValue(':val14', $post['attractiveness'], PDO::PARAM_INT);
-    $q->bindValue(':val15', $post['conscience'], PDO::PARAM_INT);
+    $q->bindValue(':val9', $post['specialeffects'], PDO::PARAM_INT);
+    $q->bindValue(':val10', $post['iseffective'], PDO::PARAM_INT);
+    $q->bindValue(':val11', $post['plot'], PDO::PARAM_INT);
+    $q->bindValue(':val12', $post['convincing'], PDO::PARAM_INT);
+    $q->bindValue(':val13', $post['attractive'], PDO::PARAM_INT);
+    $q->bindValue(':val14', $post['place_viewer'], PDO::PARAM_INT);
+    $q->bindValue(':val15', $post['place_stimulate'], PDO::PARAM_INT);
+    $q->bindValue(':val16', $post['specific_green'], PDO::PARAM_INT);
+    $q->bindValue(':val17', $post['specific_csr'], PDO::PARAM_INT);
+    $q->bindValue(':val18', $post['specific_provide'], PDO::PARAM_INT);
+    $q->bindValue(':val19', $post['specific_portray'], PDO::PARAM_INT);
+    $q->bindValue(':val20', $post['discuss'], PDO::PARAM_INT);
+    $q->bindValue(':val21', $post['attention'], PDO::PARAM_INT);
+    $q->bindValue(':val22', $post['awareness'], PDO::PARAM_INT);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully saved";
+      $header = 200;
     } catch (Exception $e) {
       $res['message'] = "There are an error $e, please try later";
+      $header = 404;
     }
   } else {
-    $sql = "UPDATE evaluation_corporate SET originalityscript=:val3,rythm=:val4,length=:val5,photography=:val6,sound=:val7,edition=:val8,specific1=:val9,specific2=:val10,sustainvalue=:val11,stimulate=:val12,originalitysustain=:val13,attractiveness=:val14,conscience=:val15 WHERE film = :id AND jury = :jury";
+    $sql = "UPDATE evaluation_corporate SET";
+    $sql .= " originalityscript=:val3, rythm=:val4, length=:val5, photography=:val6, sound=:val7, edition=:val8, specialeffects=:val9, ";
+    $sql .= "iseffective=:val10, plot=:val11, convincing=:val12, attractive=:val13, place_viewer=:val14, place_stimulate=:val15, ";
+    $sql .= "specific_green=:val16, specific_csr=:val17, specific_provide=:val18, specific_portray=:val19, ";
+    $sql .= "discuss=:val20, attention=:val21, awareness=:val22 WHERE film = :id AND jury = :jury";
     $q = $db->prepare($sql);
     $q->bindParam(':id', $id);
     $q->bindParam(':jury', $jury);
@@ -311,21 +363,30 @@ Flight::route('POST /corpfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val6', $post['photography'], PDO::PARAM_INT);
     $q->bindValue(':val7', $post['sound'], PDO::PARAM_INT);
     $q->bindValue(':val8', $post['edition'], PDO::PARAM_INT);
-    $q->bindValue(':val9', $post['specific1'], PDO::PARAM_INT);
-    $q->bindValue(':val10', $post['specific2'], PDO::PARAM_INT);
-    $q->bindValue(':val11', $post['sustainvalue'], PDO::PARAM_INT);
-    $q->bindValue(':val12', $post['stimulate'], PDO::PARAM_INT);
-    $q->bindValue(':val13', $post['originalitysustain'], PDO::PARAM_INT);
-    $q->bindValue(':val14', $post['attractiveness'], PDO::PARAM_INT);
-    $q->bindValue(':val15', $post['conscience'], PDO::PARAM_INT);
+    $q->bindValue(':val9', $post['specialeffects'], PDO::PARAM_INT);
+    $q->bindValue(':val10', $post['iseffective'], PDO::PARAM_INT);
+    $q->bindValue(':val11', $post['plot'], PDO::PARAM_INT);
+    $q->bindValue(':val12', $post['convincing'], PDO::PARAM_INT);
+    $q->bindValue(':val13', $post['attractive'], PDO::PARAM_INT);
+    $q->bindValue(':val14', $post['place_viewer'], PDO::PARAM_INT);
+    $q->bindValue(':val15', $post['place_stimulate'], PDO::PARAM_INT);
+    $q->bindValue(':val16', $post['specific_green'], PDO::PARAM_INT);
+    $q->bindValue(':val17', $post['specific_csr'], PDO::PARAM_INT);
+    $q->bindValue(':val18', $post['specific_provide'], PDO::PARAM_INT);
+    $q->bindValue(':val19', $post['specific_portray'], PDO::PARAM_INT);
+    $q->bindValue(':val20', $post['discuss'], PDO::PARAM_INT);
+    $q->bindValue(':val21', $post['attention'], PDO::PARAM_INT);
+    $q->bindValue(':val22', $post['awareness'], PDO::PARAM_INT);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully updated";
+      $header = 200;
     } catch (Exception $e) {
       $res['message'] = "There are an error $e, please try later";
+      $header = 404;
     }
   }
-  Flight::json($res);
+  Flight::json($res,$header);
 });
 
 ///////
@@ -362,6 +423,7 @@ Flight::route('POST /docfilm/@id/@jury', function($id,$jury){
   $post = Flight::request()->data;
 
   $res = [];
+  $header = 500;
 
   $sql = "SELECT id FROM evaluation_documentary WHERE film = :id AND jury = :jury";
   $q = $db->prepare($sql);
@@ -370,7 +432,13 @@ Flight::route('POST /docfilm/@id/@jury', function($id,$jury){
   $q->execute();
   $count = $q->rowCount();
   if ($count == 0) {
-    $sql = "INSERT INTO evaluation_documentary(jury, film, originalityscript, rythm, length, photography, sound, edition, specific1, specific2, sustainvalue, stimulate, originalitysustain, attractiveness, conscience) VALUES (:val1,:val2,:val3,:val4,:val5,:val6,:val7,:val8,:val9,:val10,:val11,:val12,:val13,:val14,:val15)";
+    $sql = "INSERT INTO evaluation_documentary(";
+    $sql .= "jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, ";
+    $sql .= "attractive, place_viewer, place_stimulate, specific_travel, specific_sustain, specific_narrative, ";
+    $sql .= "specific_focus, specific_reflection, specific_suggest, discuss, attention, awareness) VALUES (";
+    $sql .= ":val1,:val2,:val3,:val4,:val5,:val6,:val7,:val8,:val9,:val10,:val11,:val12,";
+    $sql .= ":val13,:val14,:val15,:val16,:val17,:val18,";
+    $sql .= ":val19,:val20,:val21,:val22,:val23,:val24)";
     $q = $db->prepare($sql);
     $q->bindParam(':val1', $jury);
     $q->bindParam(':val2', $id);
@@ -380,21 +448,36 @@ Flight::route('POST /docfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val6', $post['photography'], PDO::PARAM_INT);
     $q->bindValue(':val7', $post['sound'], PDO::PARAM_INT);
     $q->bindValue(':val8', $post['edition'], PDO::PARAM_INT);
-    $q->bindValue(':val9', $post['specific1'], PDO::PARAM_INT);
-    $q->bindValue(':val10', $post['specific2'], PDO::PARAM_INT);
-    $q->bindValue(':val11', $post['sustainvalue'], PDO::PARAM_INT);
-    $q->bindValue(':val12', $post['stimulate'], PDO::PARAM_INT);
-    $q->bindValue(':val13', $post['originalitysustain'], PDO::PARAM_INT);
-    $q->bindValue(':val14', $post['attractiveness'], PDO::PARAM_INT);
-    $q->bindValue(':val15', $post['conscience'], PDO::PARAM_INT);
+    $q->bindValue(':val9', $post['specialeffects'], PDO::PARAM_INT);
+    $q->bindValue(':val10', $post['iseffective'], PDO::PARAM_INT);
+    $q->bindValue(':val11', $post['plot'], PDO::PARAM_INT);
+    $q->bindValue(':val12', $post['convincing'], PDO::PARAM_INT);
+    $q->bindValue(':val13', $post['attractive'], PDO::PARAM_INT);
+    $q->bindValue(':val14', $post['place_viewer'], PDO::PARAM_INT);
+    $q->bindValue(':val15', $post['place_stimulate'], PDO::PARAM_INT);
+    $q->bindValue(':val16', $post['specific_travel'], PDO::PARAM_INT);
+    $q->bindValue(':val17', $post['specific_sustain'], PDO::PARAM_INT);
+    $q->bindValue(':val18', $post['specific_narrative'], PDO::PARAM_INT);
+    $q->bindValue(':val19', $post['specific_focus'], PDO::PARAM_INT);
+    $q->bindValue(':val20', $post['specific_reflection'], PDO::PARAM_INT);
+    $q->bindValue(':val21', $post['specific_suggest'], PDO::PARAM_INT);
+    $q->bindValue(':val22', $post['discuss'], PDO::PARAM_INT);
+    $q->bindValue(':val23', $post['attention'], PDO::PARAM_INT);
+    $q->bindValue(':val24', $post['awareness'], PDO::PARAM_INT);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully saved";
+      $header = 200;
     } catch (Exception $e) {
       $res['message'] = "There are an error $e, please try later";
+      $header = 404;
     }
   } else {
-    $sql = "UPDATE evaluation_documentary SET originalityscript=:val3,rythm=:val4,length=:val5,photography=:val6,sound=:val7,edition=:val8,specific1=:val9,specific2=:val10,sustainvalue=:val11,stimulate=:val12,originalitysustain=:val13,attractiveness=:val14,conscience=:val15 WHERE film = :id AND jury = :jury";
+    $sql = "UPDATE evaluation_documentary SET";
+    $sql .= " originalityscript=:val3, rythm=:val4, length=:val5, photography=:val6, sound=:val7, edition=:val8, specialeffects=:val9, ";
+    $sql .= "iseffective=:val10, plot=:val11, convincing=:val12, attractive=:val13, place_viewer=:val14, place_stimulate=:val15, ";
+    $sql .= "specific_travel=:val16, specific_sustain=:val17, specific_narrative=:val18, specific_focus=:val19, ";
+    $sql .= "specific_reflection=:val20, specific_suggest=:val21, discuss=:val22, attention=:val23, awareness=:val24 WHERE film = :id AND jury = :jury";
     $q = $db->prepare($sql);
     $q->bindParam(':id', $id);
     $q->bindParam(':jury', $jury);
@@ -404,21 +487,32 @@ Flight::route('POST /docfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val6', $post['photography'], PDO::PARAM_INT);
     $q->bindValue(':val7', $post['sound'], PDO::PARAM_INT);
     $q->bindValue(':val8', $post['edition'], PDO::PARAM_INT);
-    $q->bindValue(':val9', $post['specific1'], PDO::PARAM_INT);
-    $q->bindValue(':val10', $post['specific2'], PDO::PARAM_INT);
-    $q->bindValue(':val11', $post['sustainvalue'], PDO::PARAM_INT);
-    $q->bindValue(':val12', $post['stimulate'], PDO::PARAM_INT);
-    $q->bindValue(':val13', $post['originalitysustain'], PDO::PARAM_INT);
-    $q->bindValue(':val14', $post['attractiveness'], PDO::PARAM_INT);
-    $q->bindValue(':val15', $post['conscience'], PDO::PARAM_INT);
+    $q->bindValue(':val9', $post['specialeffects'], PDO::PARAM_INT);
+    $q->bindValue(':val10', $post['iseffective'], PDO::PARAM_INT);
+    $q->bindValue(':val11', $post['plot'], PDO::PARAM_INT);
+    $q->bindValue(':val12', $post['convincing'], PDO::PARAM_INT);
+    $q->bindValue(':val13', $post['attractive'], PDO::PARAM_INT);
+    $q->bindValue(':val14', $post['place_viewer'], PDO::PARAM_INT);
+    $q->bindValue(':val15', $post['place_stimulate'], PDO::PARAM_INT);
+    $q->bindValue(':val16', $post['specific_travel'], PDO::PARAM_INT);
+    $q->bindValue(':val17', $post['specific_sustain'], PDO::PARAM_INT);
+    $q->bindValue(':val18', $post['specific_narrative'], PDO::PARAM_INT);
+    $q->bindValue(':val19', $post['specific_focus'], PDO::PARAM_INT);
+    $q->bindValue(':val20', $post['specific_reflection'], PDO::PARAM_INT);
+    $q->bindValue(':val21', $post['specific_suggest'], PDO::PARAM_INT);
+    $q->bindValue(':val22', $post['discuss'], PDO::PARAM_INT);
+    $q->bindValue(':val23', $post['attention'], PDO::PARAM_INT);
+    $q->bindValue(':val24', $post['awareness'], PDO::PARAM_INT);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully updated";
+      $header = 200;
     } catch (Exception $e) {
       $res['message'] = "There are an error $e, please try later";
+      $header = 404;
     }
   }
-  Flight::json($res);
+  Flight::json($res,$header);
 });
 
 Flight::start();

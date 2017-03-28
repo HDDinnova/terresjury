@@ -24,8 +24,9 @@ function AuthService($http, Session) {
   return authService;
 }
 
-function Films($resource) {
-  return $resource('api/films', {}, {
+function Films($resource, Session) {
+  var url = 'api/films/' + Session.userId;
+  return $resource(url, {}, {
     query: {method: 'GET'}
   });
 }

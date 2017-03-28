@@ -26,13 +26,20 @@ function CorporateController(Session, $stateParams, Corpfilm, $window, $state) {
         photography: 0,
         sound: 0,
         edition: 0,
-        specific1: 0,
-        specific2: 0,
-        sustainvalue: 0,
-        stimulate: 0,
-        originalitysustain: 0,
-        attractiveness: 0,
-        conscience: 0
+        specialeffects: 0,
+        iseffective: 0,
+        plot: 0,
+        convincing: 0,
+        attractive: 0,
+        place_viewer: 0,
+        place_stimulate: 0,
+        specific_green: 0,
+        specific_csr: 0,
+        specific_provide: 0,
+        specific_portray: 0,
+        discuss: 0,
+        attention: 0,
+        awareness: 0
       };
     }
     vm.loading = false;
@@ -43,6 +50,8 @@ function CorporateController(Session, $stateParams, Corpfilm, $window, $state) {
     var filmsave = Corpfilm.save({id: vm.id, jury: vm.jury}, vm.eval).$promise;
     filmsave.then(function () {
       $state.go('dashboard');
-    });
+    }), function (res) {
+      alert('Ups!! There are an error, please make a screenshot of this error and send to contact@terres.info. Error:' + res);
+    };
   };
 }

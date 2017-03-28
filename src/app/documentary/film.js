@@ -26,13 +26,22 @@ function DocumentaryController(Session, $stateParams, Docfilm, $window, $state) 
         photography: 0,
         sound: 0,
         edition: 0,
-        specific1: 0,
-        specific2: 0,
-        sustainvalue: 0,
-        stimulate: 0,
-        originalitysustain: 0,
-        attractiveness: 0,
-        conscience: 0
+        specialeffects: 0,
+        iseffective: 0,
+        plot: 0,
+        convincing: 0,
+        attractive: 0,
+        place_viewer: 0,
+        place_stimulate: 0,
+        specific_travel: 0,
+        specific_sustain: 0,
+        specific_narrative: 0,
+        specific_focus: 0,
+        specific_reflection: 0,
+        specific_suggest: 0,
+        discuss: 0,
+        attention: 0,
+        awareness: 0
       };
     }
     vm.loading = false;
@@ -43,6 +52,8 @@ function DocumentaryController(Session, $stateParams, Docfilm, $window, $state) 
     var filmsave = Docfilm.save({id: vm.id, jury: vm.jury}, vm.eval).$promise;
     filmsave.then(function () {
       $state.go('dashboard');
-    });
+    }), function (res) {
+      alert('Ups!! There are an error, please make a screenshot of this error and send to contact@terres.info. Error:' + res);
+    };
   };
 }

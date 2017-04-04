@@ -2,9 +2,9 @@ angular
   .module('app')
   .controller('TourfilmController', TourfilmController);
 
-TourfilmController.$inject = ['Session', '$stateParams', 'Tourfilm', '$window', '$state'];
+TourfilmController.$inject = ['Session', '$stateParams', 'Tourfilm', '$window', '$state', '$log'];
 
-function TourfilmController(Session, $stateParams, Tourfilm, $window, $state) {
+function TourfilmController(Session, $stateParams, Tourfilm, $window, $state, $log) {
   var vm = this;
   vm.id = $stateParams.id;
   vm.jury = Session.userId;
@@ -40,7 +40,8 @@ function TourfilmController(Session, $stateParams, Tourfilm, $window, $state) {
         specific_promote: 0,
         discuss: 0,
         attention: 0,
-        awareness: 0
+        awareness: 0,
+        comment: ''
       };
     }
     vm.loading = false;
@@ -48,6 +49,7 @@ function TourfilmController(Session, $stateParams, Tourfilm, $window, $state) {
 
   // Save evaluation
   vm.save = function () {
+    $log.info(vm.eval);
     var filmsave = Tourfilm.save({id: vm.id, jury: vm.jury}, vm.eval).$promise;
     filmsave.then(function () {
       $state.go('dashboard');

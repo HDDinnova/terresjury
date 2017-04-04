@@ -19,7 +19,7 @@
           <ul class="dropdown-menu" uib-dropdown-menu>
             <!-- <li><a href="#">AA</a></li>
             <li class="divider"></li> -->
-            <li><a href="#">Logout</a></li>
+            <li><a href="#" ng-click="vm.logout()">Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -64,6 +64,10 @@
   <hr>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
     <form class="form-inline">
+      <h5>Comments related to the categories chosen:</h5>
+      <textarea name="comments" rows="8" cols="80" ng-model="vm.eval.comment"></textarea>
+      <div class="clearfix"></div>
+      <hr>
       <h4>TECHNICAL EVALUATION CRITERIA</h4>
       <div class="col-md-12">
         <div class="col-md-4">

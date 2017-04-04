@@ -39,7 +39,8 @@ function CorporateController(Session, $stateParams, Corpfilm, $window, $state) {
         specific_portray: 0,
         discuss: 0,
         attention: 0,
-        awareness: 0
+        awareness: 0,
+        comment: ''
       };
     }
     vm.loading = false;

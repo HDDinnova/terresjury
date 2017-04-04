@@ -31,3 +31,9 @@ form{
 .glyphicon{
   font-size: large;
 }
+.traduit{
+  background-color: #FFF176 !important;
+}
+.evaluat{
+  background-color: #B2FF59;
+}

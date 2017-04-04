@@ -15,5 +15,7 @@ function Session() {
   this.destroy = function () {
     this.id = null;
     this.userId = null;
+    this.email = null;
+    this.name = null;
   };
 }

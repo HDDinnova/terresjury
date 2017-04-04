@@ -41,7 +41,8 @@ function DocumentaryController(Session, $stateParams, Docfilm, $window, $state) 
         specific_suggest: 0,
         discuss: 0,
         attention: 0,
-        awareness: 0
+        awareness: 0,
+        comment: ''
       };
     }
     vm.loading = false;

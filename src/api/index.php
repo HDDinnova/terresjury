@@ -77,7 +77,7 @@ Flight::route('GET /films/@jury', function($jury){
 
   $films = [];
 
-  $sql = "SELECT corporatefilms.id, competitors.fullName, title, director FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
+  $sql = "SELECT corporatefilms.id, competitors.fullName, title, director, translate FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $corporate = [];
@@ -98,7 +98,7 @@ Flight::route('GET /films/@jury', function($jury){
 
   $films['corporate'] = $corporate;
 
-  $sql = "SELECT documentaryfilms.id, competitors.fullName, title, director FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
+  $sql = "SELECT documentaryfilms.id, competitors.fullName, title, director, translate FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $documentary = [];
@@ -119,7 +119,7 @@ Flight::route('GET /films/@jury', function($jury){
 
   $films['documentary'] = $documentary;
 
-  $sql = "SELECT tourismfilms.id, competitors.fullName, title, director FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
+  $sql = "SELECT tourismfilms.id, competitors.fullName, title, director, translate FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $tourism = [];
@@ -190,10 +190,10 @@ Flight::route('POST /tourfilm/@id/@jury', function($id,$jury){
     $sql = "INSERT INTO evaluation_tourism(";
     $sql .= "jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, ";
     $sql .= "attractive, place_viewer, place_stimulate, specific_sell, specific_clear, specific_provide, ";
-    $sql .= "specific_focus, specific_promote, discuss, attention, awareness) VALUES (";
+    $sql .= "specific_focus, specific_promote, discuss, attention, awareness, comment) VALUES (";
     $sql .= ":val1,:val2,:val3,:val4,:val5,:val6,:val7,:val8,:val9,:val10,:val11,:val12,";
     $sql .= ":val13,:val14,:val15,:val16,:val17,:val18,";
-    $sql .= ":val19,:val20,:val21,:val22,:val23)";
+    $sql .= ":val19,:val20,:val21,:val22,:val23,:val24)";
     $q = $db->prepare($sql);
     $q->bindParam(':val1', $jury);
     $q->bindParam(':val2', $id);
@@ -218,6 +218,7 @@ Flight::route('POST /tourfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val21', $post['discuss'], PDO::PARAM_INT);
     $q->bindValue(':val22', $post['attention'], PDO::PARAM_INT);
     $q->bindValue(':val23', $post['awareness'], PDO::PARAM_INT);
+    $q->bindValue(':val24', $post['comment'], PDO::PARAM_STR);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully saved";
@@ -231,7 +232,7 @@ Flight::route('POST /tourfilm/@id/@jury', function($id,$jury){
     $sql .= " originalityscript=:val3, rythm=:val4, length=:val5, photography=:val6, sound=:val7, edition=:val8, specialeffects=:val9, ";
     $sql .= "iseffective=:val10, plot=:val11, convincing=:val12, attractive=:val13, place_viewer=:val14, place_stimulate=:val15, ";
     $sql .= "specific_sell=:val16, specific_clear=:val17, specific_provide=:val18, specific_focus=:val19, specific_promote=:val20, ";
-    $sql .= "discuss=:val21, attention=:val22, awareness=:val23 WHERE film = :id AND jury = :jury";
+    $sql .= "discuss=:val21, attention=:val22, awareness=:val23, comment=:val24 WHERE film = :id AND jury = :jury";
     $q = $db->prepare($sql);
     $q->bindParam(':id', $id);
     $q->bindParam(':jury', $jury);
@@ -256,6 +257,7 @@ Flight::route('POST /tourfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val21', $post['discuss'], PDO::PARAM_INT);
     $q->bindValue(':val22', $post['attention'], PDO::PARAM_INT);
     $q->bindValue(':val23', $post['awareness'], PDO::PARAM_INT);
+    $q->bindValue(':val24', $post['comment'], PDO::PARAM_STR);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully updated";
@@ -313,10 +315,10 @@ Flight::route('POST /corpfilm/@id/@jury', function($id,$jury){
     $sql = "INSERT INTO evaluation_corporate(";
     $sql .= "jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, ";
     $sql .= "attractive, place_viewer, place_stimulate, specific_green, specific_csr, specific_provide, ";
-    $sql .= "specific_portray, discuss, attention, awareness) VALUES (";
+    $sql .= "specific_portray, discuss, attention, awareness, comment) VALUES (";
     $sql .= ":val1,:val2,:val3,:val4,:val5,:val6,:val7,:val8,:val9,:val10,:val11,:val12,";
     $sql .= ":val13,:val14,:val15,:val16,:val17,:val18,";
-    $sql .= ":val19,:val20,:val21,:val22)";
+    $sql .= ":val19,:val20,:val21,:val22,:val23)";
     $q = $db->prepare($sql);
     $q->bindParam(':val1', $jury);
     $q->bindParam(':val2', $id);
@@ -340,6 +342,7 @@ Flight::route('POST /corpfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val20', $post['discuss'], PDO::PARAM_INT);
     $q->bindValue(':val21', $post['attention'], PDO::PARAM_INT);
     $q->bindValue(':val22', $post['awareness'], PDO::PARAM_INT);
+    $q->bindValue(':val23', $post['comment'], PDO::PARAM_STR);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully saved";
@@ -353,7 +356,7 @@ Flight::route('POST /corpfilm/@id/@jury', function($id,$jury){
     $sql .= " originalityscript=:val3, rythm=:val4, length=:val5, photography=:val6, sound=:val7, edition=:val8, specialeffects=:val9, ";
     $sql .= "iseffective=:val10, plot=:val11, convincing=:val12, attractive=:val13, place_viewer=:val14, place_stimulate=:val15, ";
     $sql .= "specific_green=:val16, specific_csr=:val17, specific_provide=:val18, specific_portray=:val19, ";
-    $sql .= "discuss=:val20, attention=:val21, awareness=:val22 WHERE film = :id AND jury = :jury";
+    $sql .= "discuss=:val20, attention=:val21, awareness=:val22, comment=:val23 WHERE film = :id AND jury = :jury";
     $q = $db->prepare($sql);
     $q->bindParam(':id', $id);
     $q->bindParam(':jury', $jury);
@@ -377,6 +380,7 @@ Flight::route('POST /corpfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val20', $post['discuss'], PDO::PARAM_INT);
     $q->bindValue(':val21', $post['attention'], PDO::PARAM_INT);
     $q->bindValue(':val22', $post['awareness'], PDO::PARAM_INT);
+    $q->bindValue(':val23', $post['comment'], PDO::PARAM_STR);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully updated";
@@ -435,10 +439,10 @@ Flight::route('POST /docfilm/@id/@jury', function($id,$jury){
     $sql = "INSERT INTO evaluation_documentary(";
     $sql .= "jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, ";
     $sql .= "attractive, place_viewer, place_stimulate, specific_travel, specific_sustain, specific_narrative, ";
-    $sql .= "specific_focus, specific_reflection, specific_suggest, discuss, attention, awareness) VALUES (";
+    $sql .= "specific_focus, specific_reflection, specific_suggest, discuss, attention, awareness, comment) VALUES (";
     $sql .= ":val1,:val2,:val3,:val4,:val5,:val6,:val7,:val8,:val9,:val10,:val11,:val12,";
     $sql .= ":val13,:val14,:val15,:val16,:val17,:val18,";
-    $sql .= ":val19,:val20,:val21,:val22,:val23,:val24)";
+    $sql .= ":val19,:val20,:val21,:val22,:val23,:val24,:val25)";
     $q = $db->prepare($sql);
     $q->bindParam(':val1', $jury);
     $q->bindParam(':val2', $id);
@@ -464,6 +468,7 @@ Flight::route('POST /docfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val22', $post['discuss'], PDO::PARAM_INT);
     $q->bindValue(':val23', $post['attention'], PDO::PARAM_INT);
     $q->bindValue(':val24', $post['awareness'], PDO::PARAM_INT);
+    $q->bindValue(':val25', $post['comment'], PDO::PARAM_STR);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully saved";
@@ -477,7 +482,7 @@ Flight::route('POST /docfilm/@id/@jury', function($id,$jury){
     $sql .= " originalityscript=:val3, rythm=:val4, length=:val5, photography=:val6, sound=:val7, edition=:val8, specialeffects=:val9, ";
     $sql .= "iseffective=:val10, plot=:val11, convincing=:val12, attractive=:val13, place_viewer=:val14, place_stimulate=:val15, ";
     $sql .= "specific_travel=:val16, specific_sustain=:val17, specific_narrative=:val18, specific_focus=:val19, ";
-    $sql .= "specific_reflection=:val20, specific_suggest=:val21, discuss=:val22, attention=:val23, awareness=:val24 WHERE film = :id AND jury = :jury";
+    $sql .= "specific_reflection=:val20, specific_suggest=:val21, discuss=:val22, attention=:val23, awareness=:val24, comment=:val25 WHERE film = :id AND jury = :jury";
     $q = $db->prepare($sql);
     $q->bindParam(':id', $id);
     $q->bindParam(':jury', $jury);
@@ -503,6 +508,7 @@ Flight::route('POST /docfilm/@id/@jury', function($id,$jury){
     $q->bindValue(':val22', $post['discuss'], PDO::PARAM_INT);
     $q->bindValue(':val23', $post['attention'], PDO::PARAM_INT);
     $q->bindValue(':val24', $post['awareness'], PDO::PARAM_INT);
+    $q->bindValue(':val25', $post['comment'], PDO::PARAM_STR);
     try {
       $q->execute();
       $res['message'] = "Evaluation succesfully updated";

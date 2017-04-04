@@ -19,14 +19,13 @@
           <ul class="dropdown-menu" uib-dropdown-menu>
             <!-- <li><a href="#">AA</a></li>
             <li class="divider"></li> -->
-            <li><a href="#">Logout</a></li>
+            <li><a href="#" ng-click="vm.logout()">Logout</a></li>
           </ul>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
 <div class="container-fluid" ng-controller="FilmsController as vm">
   <uib-tabset>
     <uib-tab heading="Tourism">
@@ -40,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="film in vm.films.tourism track by $index" ng-class="{success: film.evaluation == 'true'}">
+          <tr ng-repeat="film in vm.films.tourism track by $index" ng-class="{traduit: film.translate == '1' && film.evaluation == 'false', evaluat: film.evaluation == 'true'}">
             <td ng-bind-html="film.title"></td>
             <td ng-bind-html="film.director"></td>
             <td ng-bind-html="film.fullName"></td>
@@ -62,7 +61,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="film in vm.films.documentary track by $index" ng-class="{success: film.evaluation == 'true'}">
+          <tr ng-repeat="film in vm.films.documentary track by $index" ng-class="{traduit: film.translate == '1' && film.evaluation == 'false', evaluat: film.evaluation == 'true'}">
             <td ng-bind-html="film.title"></td>
             <td ng-bind-html="film.director"></td>
             <td ng-bind-html="film.fullName"></td>
@@ -84,7 +83,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="film in vm.films.corporate track by $index" ng-class="{success: film.evaluation == 'true'}">
+          <tr ng-repeat="film in vm.films.corporate track by $index" ng-class="{traduit: film.translate == '1' && film.evaluation == 'false', evaluat: film.evaluation == 'true'}">
             <td ng-bind-html="film.title"></td>
             <td ng-bind-html="film.director"></td>
             <td ng-bind-html="film.fullName"></td>

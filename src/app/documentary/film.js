@@ -54,7 +54,7 @@ function DocumentaryController(Session, $stateParams, Docfilm, $window, $state) 
     filmsave.then(function () {
       $state.go('dashboard');
     }), function (res) {
-      alert('Ups!! There are an error, please make a screenshot of this error and send to contact@terres.info. Error:' + res);
+      alert('Ups!! There are an error, please make a screenshot of this error and send to filmsnomades@gmail.com. Error:' + res);
     };
   };
 }

@@ -34,7 +34,7 @@
           <tr>
             <th>Film</th>
             <th>Director</th>
-            <!-- <th>Competitor</th> -->
+            <th>Film duration</th>
             <th>View</th>
           </tr>
         </thead>
@@ -42,7 +42,7 @@
           <tr ng-repeat="film in vm.films.tourism track by $index" ng-class="{traduit: film.translate == '1' && film.evaluation == 'false', evaluat: film.evaluation == 'true'}">
             <td ng-bind-html="film.title"></td>
             <td ng-bind-html="film.director"></td>
-            <!-- <td ng-bind-html="film.fullName"></td> -->
+            <td>{{film.filmduration}}</td>
             <td class="text-center">
               <a ui-sref="tourfilm({id: film.id})"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
             </td>
@@ -56,7 +56,7 @@
           <tr>
             <th>Film</th>
             <th>Director</th>
-            <!-- <th>Competitor</th> -->
+            <th>Film duration</th>
             <th>View</th>
           </tr>
         </thead>
@@ -64,7 +64,7 @@
           <tr ng-repeat="film in vm.films.documentary track by $index" ng-class="{traduit: film.translate == '1' && film.evaluation == 'false', evaluat: film.evaluation == 'true'}">
             <td ng-bind-html="film.title"></td>
             <td ng-bind-html="film.director"></td>
-            <!-- <td ng-bind-html="film.fullName"></td> -->
+            <td>{{film.filmduration}}</td>
             <td class="text-center">
               <a ui-sref="docfilm({id: film.id})"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
             </td>
@@ -78,7 +78,7 @@
           <tr>
             <th>Film</th>
             <th>Director</th>
-            <!-- <th>Competitor</th> -->
+            <th>Film duration</th>
             <th>View</th>
           </tr>
         </thead>
@@ -86,7 +86,7 @@
           <tr ng-repeat="film in vm.films.corporate track by $index" ng-class="{traduit: film.translate == '1' && film.evaluation == 'false', evaluat: film.evaluation == 'true'}">
             <td ng-bind-html="film.title"></td>
             <td ng-bind-html="film.director"></td>
-            <!-- <td ng-bind-html="film.fullName"></td> -->
+            <td>{{film.filmduration}}</td>
             <td class="text-center">
               <a ui-sref="corpfilm({id: film.id})"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
             </td>

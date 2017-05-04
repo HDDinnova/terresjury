@@ -77,7 +77,7 @@ Flight::route('GET /films/@jury', function($jury){
 
   $films = [];
 
-  $sql = "SELECT corporatefilms.id, competitors.fullName, title, director, translate FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
+  $sql = "SELECT corporatefilms.id, competitors.fullName, title, director, translate, filmduration FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $corporate = [];
@@ -98,7 +98,7 @@ Flight::route('GET /films/@jury', function($jury){
 
   $films['corporate'] = $corporate;
 
-  $sql = "SELECT documentaryfilms.id, competitors.fullName, title, director, translate FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
+  $sql = "SELECT documentaryfilms.id, competitors.fullName, title, director, translate, filmduration FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $documentary = [];
@@ -119,7 +119,7 @@ Flight::route('GET /films/@jury', function($jury){
 
   $films['documentary'] = $documentary;
 
-  $sql = "SELECT tourismfilms.id, competitors.fullName, title, director, translate FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
+  $sql = "SELECT tourismfilms.id, competitors.fullName, title, director, translate, filmduration FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $tourism = [];

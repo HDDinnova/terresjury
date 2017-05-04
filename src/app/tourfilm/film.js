@@ -2,9 +2,9 @@ angular
   .module('app')
   .controller('TourfilmController', TourfilmController);
 
-TourfilmController.$inject = ['Session', '$stateParams', 'Tourfilm', '$window', '$state', '$log'];
+TourfilmController.$inject = ['Session', '$stateParams', 'Tourfilm', '$window', '$state'];
 
-function TourfilmController(Session, $stateParams, Tourfilm, $window, $state, $log) {
+function TourfilmController(Session, $stateParams, Tourfilm, $window, $state) {
   var vm = this;
   vm.id = $stateParams.id;
   vm.jury = Session.userId;
@@ -49,12 +49,11 @@ function TourfilmController(Session, $stateParams, Tourfilm, $window, $state, $l
 
   // Save evaluation
   vm.save = function () {
-    $log.info(vm.eval);
     var filmsave = Tourfilm.save({id: vm.id, jury: vm.jury}, vm.eval).$promise;
     filmsave.then(function () {
       $state.go('dashboard');
-    }), function (res) {
+    }, function (res) {
       alert('Ups!! There are an error, please make a screenshot of this error and send to contact@terres.info. Error:' + res);
-    };
+    });
   };
 }

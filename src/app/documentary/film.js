@@ -53,8 +53,8 @@ function DocumentaryController(Session, $stateParams, Docfilm, $window, $state) 
     var filmsave = Docfilm.save({id: vm.id, jury: vm.jury}, vm.eval).$promise;
     filmsave.then(function () {
       $state.go('dashboard');
-    }), function (res) {
+    }, function (res) {
       alert('Ups!! There are an error, please make a screenshot of this error and send to filmsnomades@gmail.com. Error:' + res);
-    };
+    });
   };
 }

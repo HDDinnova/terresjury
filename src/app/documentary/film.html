@@ -31,12 +31,12 @@
   <div class="loading" ng-if="vm.loading">
     <uib-progressbar class="progress-striped active" max="100" value="100"><i>loading...</i></uib-progressbar>
   </div>
-  <h1 class="text-center">{{vm.film.title}}</h1>
+  <h1 class="text-center" ng-bind-html="vm.film.title"></h1>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12" ng-if="!vm.film.webdoc">
     <video ng-src="https://terres.info/intranet/film/{{vm.film.film}}" controls></video>
   </div>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12" ng-if="vm.film.webdoc">
-    <a ng-href="vm.film.webdoc" target="_blank">{{vm.film.webdoc}}</a>
+    <a ng-href="{{vm.film.webdoc}}" target="_blank">{{vm.film.webdoc}}</a>
   </div>
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
     <div class="col-md-6">
